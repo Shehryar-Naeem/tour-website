@@ -1,9 +1,10 @@
-footer {
+#footer {
   margin-top: 10vmax;
   padding: 2vmax;
   background-color: rgb(34, 33, 33);
   color: white;
   display: flex;
+  flex-direction: row;
   /* align-items: center; */
 }
 
@@ -95,7 +96,7 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-  footer{
+ #ffooter{
     flex-direction: column;
   }
   .leftFooter{
