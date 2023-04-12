@@ -13,7 +13,7 @@ const LoginSignUp = ({ history, location }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { error, loading, isAuthenticated } = useSelector(
+  const { error, loading, isAuthenticated,success,message } = useSelector(
     (state) => state.user
   );
 
@@ -80,7 +80,10 @@ const LoginSignUp = ({ history, location }) => {
     if (isAuthenticated) {
       history.push(redirect);
     }
-  }, [dispatch, error, alert, history, isAuthenticated, redirect]);
+    if(success){
+      alert.success(message)
+    }
+  }, [dispatch, error, alert, history, isAuthenticated, redirect,success,message]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {

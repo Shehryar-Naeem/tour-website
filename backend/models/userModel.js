@@ -23,14 +23,20 @@ const userSchema = new mongoose.Schema({
     minLength: [8, "Password should be greater than 8 characters"],
     select: false,
   },
+  isVerified:{
+    type:Boolean,
+    default:false
+  },
   avatar: {
     public_id: {
       type: String,
       required: true,
+      default:"3292||stalah"
     },
     url: {
       type: String,
       required: true,
+      default:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&psig=AOvVaw3yZ4ihZhlPWhab5e20wjxe&ust=1681274559120000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCMif9PeBof4CFQAAAAAdAAAAABAE"
     },
   },
   role: {
@@ -44,6 +50,8 @@ const userSchema = new mongoose.Schema({
 
   resetPasswordToken: String,
   resetPasswordExpire: Date,
+  emailVerficationToken:String,
+  emailVerficationExpire:Date
 });
 
 userSchema.pre("save", async function (next) {
@@ -83,4 +91,12 @@ userSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
+
+userSchema.methods.getEmailVerficationToken=function(){
+  const verficationToken=crypto.randomBytes(20).toString("hex");
+
+  this.emailVerficationToken=crypto.createHash("sha256").update(verficationToken).digest("hex")
+  this.emailVerficationExpire=Date.now() + 30 * 60 * 1000;
+  return verficationToken;
+}
 module.exports = mongoose.model("User", userSchema);

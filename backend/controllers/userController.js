@@ -6,6 +6,7 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
+
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
@@ -15,31 +16,120 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   });
 
   const { name, email, password } = req.body;
+  
 
+  
   const user = await User.create({
     name,
-    email,
+    email,  
     password,
     avatar: {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
     },
   });
+  // const user = new User({ 
+  //     name,
+  //   email,  
+  //   password,
+  //   // avatar: {
+  //   //   public_id: myCloud.public_id,
+  //   //   url: myCloud.secure_url,
+  //   // },
+  // });
+  // const emailToken= user.getEmailVerficationToken()
+  const token = crypto.randomBytes(20).toString('hex');
 
-  sendToken(user, 201, res);
+  // Set the verification token and token expiry in user account
+  user.emailVerficationToken = token;
+  user.emailVerficationExpire = Date.now() + 3600000; // 1 hour
+
+  await user.save({ validateBeforeSave: false });
+  // const EmailVerficatonURL= `http://localhost:4073/api/v1/email/verify/${token}`
+  const EmailVerficatonURL= `${process.env.FRONT_END_URL}/email/verify/${token}`
+  const message = `Your Email verfication token is :- \n\n ${EmailVerficatonURL} \n\nIf you have not requested this email then, please ignore it.`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: `Email verfication`,
+      message,
+    });
+    // const token = user.getJWTToken()
+    res.status(200).json({
+      success: true,
+      // token,
+      message: `Email sent to ${user.email} successfully`,
+
+    });
+  } catch (error) {
+    user.emailVerficationToken = undefined;
+    user.emailVerficationExpire = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    return next(new ErrorHander(error.message, 500));
+  }
+  
 });
 
+exports.verfiyEmail=catchAsyncErrors(async(req,res,next)=>{
+  const {token}=req.params;
+
+  // Find the user account with the verification token
+  const user = await User.findOne({emailVerficationToken: token, emailVerficationExpire: { $gt: Date.now() }})
+
+  if(!user){
+    return next(new ErrorHander("Verification token is invalid or has expired", 404));
+  }
+  user.isVerified = true;
+  user.emailVerficationToken = undefined;
+  user.emailVerficationExpire = undefined;
+
+  await user.save({ validateBeforeSave: false });
+ sendToken(user, 201, res);
+    // res.status(200).json({
+    //   success:true,
+    //   message:"Your account has been verified."
+    // })
+})
 // Login User
+// exports.loginUser = catchAsyncErrors(async (req, res, next) => {
+//   const { email, password } = req.body;
+
+//   // checking if user has given password and email both
+
+//   if (!email || !password) {
+//     return next(new ErrorHander("Please Enter Email & Password", 400));
+//   }
+
+//   const user = await User.findOne({ email }).select("+password");
+
+//   if (!user) {
+//     return next(new ErrorHander("Invalid email or password", 401));
+//   }
+
+//   const isPasswordMatched = await user.comparePassword(password);
+
+//   if (!isPasswordMatched) {
+//     return next(new ErrorHander("Invalid email or password", 401));
+//   }
+
+//   sendToken(user, 200, res);
+// });
+
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
 
   // checking if user has given password and email both
-
   if (!email || !password) {
     return next(new ErrorHander("Please Enter Email & Password", 400));
   }
 
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email:{
+    $regex: email,
+    $options: "i",
+  } }).select("+password");
 
   if (!user) {
     return next(new ErrorHander("Invalid email or password", 401));
@@ -51,8 +141,13 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Invalid email or password", 401));
   }
 
+  if (!user.isVerified) {
+    return next(new ErrorHander("Your account has not been verified. Please check your email to verify your account.", 401));
+  }
+
   sendToken(user, 200, res);
 });
+
 
 // Logout User
 exports.logout = catchAsyncErrors(async (req, res, next) => {
@@ -140,7 +235,8 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
 
-  await user.save();
+  await user.save({ validateBeforeSave: false });
+
 
   sendToken(user, 200, res);
 });

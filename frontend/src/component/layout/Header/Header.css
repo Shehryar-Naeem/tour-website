@@ -1,14 +1,114 @@
 .speedDial {
   position: fixed;
   right: 3vmax;
-  top: 3vmax;
+  top: 2vmax;
 }
 
 .speedDialIcon {
+  z-index:1000;
   width: 56px;
   height: 56px;
   border-radius: 100%;
 }
 .menuBurger{
   height: 5vmax;
+}
+
+.header{
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+}
+/* .logo img{
+  width: 30%;
+}
+.menu{
+  margin-bottom: 0;
+}
+.menu li{
+  list-style: none;
+}
+.nav__item a{
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--heading-color);
+  padding: 1rem;
+}
+.nav__item a:hover{
+  color: inherit;
+}
+.nav__item a.active__link{
+  color: var(--secondary-color);
+}
+.mobile__menu{
+  font-size: 1.3rem ; 
+  color: var(--heading-color);
+  display: none;
+} */
+
+.navbar {
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  right: -250px;
+  height: 100%;
+  width: 250px;
+  overflow-y: auto;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.navbar li {
+  padding: 15px;
+  border-bottom: 1px solid #444;
+}
+.navbar li a {
+  color: #fff;
+  text-decoration: none;
+}
+.menu-icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+  line-height: 50px;
+  text-align: center;
+  display: none;
+}
+@media (max-width: 768px) {
+  .navbar {
+    right: -100%;
+  }
+  .navbar li {
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: none;
+  }
+  .navbar ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .menu-icon {
+    display: block;
+  }
+}
+
+.sticky__header{
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  background: #fff;
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  box-shadow: 3px 3px 8px -3px #ddd;
 }

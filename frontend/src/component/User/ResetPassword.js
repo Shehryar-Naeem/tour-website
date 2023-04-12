@@ -11,7 +11,7 @@ import LockIcon from "@material-ui/icons/Lock";
 const ResetPassword = ({ history, match }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
-
+  console.log(match.params.token);
   const { error, success, loading } = useSelector(
     (state) => state.forgotPassword
   );

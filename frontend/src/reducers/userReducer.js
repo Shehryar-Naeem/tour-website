@@ -43,15 +43,31 @@ import {
 
 export const userReducer = (state = { user: {} }, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
+      return {
+        loading:true,
+        success:false
+      };
+    case REGISTER_USER_SUCCESS:
+      return {
+        loading:false,
+        success:true,
+        message:action.payload
+      }
+    case REGISTER_USER_FAIL:
+      return {
+        loading:false,
+        success:false,
+        message:null,
+        error: action.payload,
+      };
+    case LOGIN_REQUEST:
     case LOAD_USER_REQUEST:
       return {
         loading: true,
-        isAuthenticated: false,
+        isAuthenticated: false, 
       };
     case LOGIN_SUCCESS:
-    case REGISTER_USER_SUCCESS:
     case LOAD_USER_SUCCESS:
       return {
         ...state,
@@ -67,7 +83,7 @@ export const userReducer = (state = { user: {} }, action) => {
         isAuthenticated: false,
       };
     case LOGIN_FAIL:
-    case REGISTER_USER_FAIL:
+    // case REGISTER_USER_FAIL:
       return {
         ...state,
         loading: false,

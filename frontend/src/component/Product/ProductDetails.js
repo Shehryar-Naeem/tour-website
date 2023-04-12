@@ -21,10 +21,12 @@ import {
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
+import { useHistory } from "react-router-dom";
 
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
+  const history = useHistory()
 
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
@@ -63,6 +65,10 @@ const ProductDetails = ({ match }) => {
   const addToCartHandler = () => {
     dispatch(addItemsToCart(match.params.id, quantity));
     alert.success("Item Added To Cart");
+    setTimeout(()=>{
+      history.push("/cart")
+    },1000)
+
   };
 
   const submitReviewToggle = () => {

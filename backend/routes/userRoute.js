@@ -12,6 +12,7 @@ const {
   getSingleUser,
   updateUserRole,
   deleteUser,
+  verfiyEmail,
 } = require("../controllers/userController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
@@ -20,6 +21,7 @@ const router = express.Router();
 router.route("/register").post(registerUser);
 
 router.route("/login").post(loginUser);
+router.route("/email/verify/:token").get(verfiyEmail)
 
 router.route("/password/forgot").post(forgotPassword);
 

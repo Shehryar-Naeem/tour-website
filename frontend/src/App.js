@@ -42,15 +42,16 @@ import ProductReviews from "./component/Admin/ProductReviews";
 import Contact from "./component/layout/Contact/Contact";
 import About from "./component/layout/About/About";
 import NotFound from "./component/layout/Not Found/NotFound";
+import VerficationEmailSucsess from "./component/User/VerifiedEmailComp";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-
+  
   const [stripeApiKey, setStripeApiKey] = useState("");
-
+  
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/v1/stripeapikey");
-
+    
     setStripeApiKey(data.stripeApiKey);
   }
 
@@ -97,7 +98,6 @@ function App() {
         <ProtectedRoute exact path="/account" component={Profile} />
 
         <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
-
         <ProtectedRoute
           exact
           path="/password/update"
@@ -107,6 +107,7 @@ function App() {
         <Route exact path="/password/forgot" component={ForgotPassword} />
 
         <Route exact path="/password/reset/:token" component={ResetPassword} />
+        <Route exact path={`/email/verify/:token`} component={VerficationEmailSucsess}/>
 
         <Route exact path="/login" component={LoginSignUp} />
 
