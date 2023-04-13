@@ -67,7 +67,7 @@ const Footer = () => {
             <span className="px-3">
               <i class="fa fa-phone" aria-hidden="true"></i>
             </span>
-            Phone:
+            Contact No:
           </h6>
           <p className="mb-0">+92 308 0018238</p>
         </div>
@@ -76,7 +76,7 @@ const Footer = () => {
             <span className="px-3">
               <i class="fa fa-phone" aria-hidden="true"></i>
             </span>
-            Phone:
+            Contact No:
           </h6>
           <p className="mb-0">+92 303 4247890</p>
         </div>

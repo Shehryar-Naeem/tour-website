@@ -23,6 +23,7 @@
     "bootstrap": "^5.2.3",
     "chart.js": "^3.5.1",
     "country-state-city": "^3.0.1",
+    "google-maps-react": "^2.0.6",
     "overlay-navbar": "^1.0.4",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
