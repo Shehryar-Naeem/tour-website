@@ -14,11 +14,11 @@ const options = {
   link1Text: "Home",
   link2Text: "Packages",
   link3Text: "Contact",
-  link4Text: "About",
+  link4Text: "Login",
   link1Url: "/",
   link2Url: "/packages",
   link3Url: "/contact",
-  link4Url: "/about",
+  link4Url: "/Login",
   link1Size: "1.3vmax",
   link1Color: "rgba(35, 35, 35,0.8)",
   nav1justifyContent: "flex-end",
@@ -39,9 +39,10 @@ const options = {
   SearchIconElement:SearchIcon,
   cartIcon:true,
   CartIconElement:ShoppingCartIcon,
-  profileIcon:true,
-  ProfileIconElement:PersonOutlineIcon
+  // profileIcon:true,
+  // ProfileIconElement:PersonOutlineIcon,
 
+  
 
 
   

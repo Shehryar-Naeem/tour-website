@@ -151,7 +151,7 @@ const ProductDetails = ({ match }) => {
                     disabled={product.Stock < 1 ? true : false}
                     onClick={addToCartHandler}
                   >
-                    Add to Fav
+                    Add to Booking
                   </button>
                 </div>
 

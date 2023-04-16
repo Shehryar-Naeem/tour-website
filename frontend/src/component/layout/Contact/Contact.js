@@ -41,7 +41,7 @@ const Contact = () => {
             </span>
             Email:
           </h6>
-          <p>hammadfarroq423@gmail.com</p>
+          <p>hammadfarroq423 @gmail.com</p>
         </div>
       </div>
       <div className="contact_right_side">

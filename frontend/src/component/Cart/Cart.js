@@ -41,8 +41,8 @@ const Cart = ({ history }) => {
         <div className="emptyCart">
           <RemoveShoppingCartIcon />
 
-          <Typography>No Product in Your Cart</Typography>
-          <Link to="/products">View Products</Link>
+          <Typography>No Package in Your Travel plan</Typography>
+          <Link to="/packages">View Packages</Link>
         </div>
       ) : (
         <Fragment>

@@ -46,8 +46,8 @@
   background-color: rgb(255, 233, 174);
   text-decoration: none;
   padding: 1.5rem;
-  width: 10vmax;
-  height: 10vmax;
+  width: 15vmax;
+  height: 15vmax;
   margin: 2rem;
   border-radius: 100%;
   display: flex;
@@ -89,7 +89,28 @@
     margin: 0;
   }
 
+.dashboardSummaryBox2{
+display: flex;
+/* flex-direction: column; */
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+}
   .dashboardSummaryBox2 > a {
+    color: rgb(0, 0, 0);
+    font: 300 2rem "Roboto";
+    text-align: center;
+    background-color: rgb(255, 233, 174);
+    text-decoration: none;
+    padding: 1.5rem;
+    width: 20vmax;
+    height: 20vmax;
+    margin: 2rem;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     padding: 0.5rem;
     margin: 1rem;
     font: 300 0.9rem "Roboto";

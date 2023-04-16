@@ -190,7 +190,7 @@ const Home = () => {
                 <h2 className="testimonial__title">What fans say about us</h2>
               </Col>
               <Col lg="12">
-                {/* <Testimonial /> */}
+                <Testimonial />
               </Col>
               {/* </Row> */}
             </Container>

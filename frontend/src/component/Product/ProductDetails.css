@@ -93,11 +93,10 @@
   color: white;
   transition: all 0.5s;
   background-color: tomato;
-  font: 500 0.7vmax "Roboto";
+  font: 500 0.9 vmax "Roboto";
   border-radius: 20px;
   padding: 0.5vmax 2vmax;
   margin: 1vmax;
-  font-size: 1.2rem;
   outline: none;
 }
 
@@ -121,13 +120,13 @@
 
 .detailsBlock-4 > p {
   color: rgba(0, 0, 0, 0.534);
-  font: 300 0.8vmax sans-serif;
+  font: 300 0.9vmax sans-serif;
 }
 
 .submitReview {
   border: none;
   background-color: tomato;
-  font: 500 0.7vmax "Roboto";
+  font: 500 0.8vmax "Roboto";
   border-radius: 20px;
   padding: 0.6vmax 2vmax;
   margin: 1vmax 0;
